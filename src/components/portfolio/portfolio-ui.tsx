@@ -1,33 +1,35 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { ReactNode } from "react";
-import { ArrowUpRight, Mail, MenuSquare, Sparkles } from "lucide-react";
+import { ArrowDownToLine, ArrowRight, ArrowUpRight, MenuSquare } from "lucide-react";
 
+import { ShapeLandingBackground } from "@/components/ui/shape-landing-hero";
 import { navItems, profile, socialLinks } from "@/lib/portfolio-data";
 import { cn } from "@/lib/utils";
 
 export function SiteHeader() {
   return (
     <header className="sticky top-0 z-40 border-b border-white/10 bg-[#07090f]/70 backdrop-blur-xl">
-      <div className="mx-auto flex w-full max-w-7xl items-center justify-between gap-4 px-4 py-4 sm:px-6 lg:px-8">
+      <div className="mx-auto grid w-full max-w-7xl grid-cols-[auto_1fr_auto] items-center gap-6 px-4 py-2 sm:px-6 lg:px-8">
         <LogoLink />
-        <nav className="hidden items-center gap-1 rounded-full border border-white/10 bg-white/5 p-1 md:flex">
+        <nav className="hidden items-center gap-1 justify-self-center rounded-full border border-white/10 bg-white/5 p-1 md:flex">
           {navItems.map((item) => (
             <Link
               key={item.href}
               href={item.href}
-              className="rounded-full px-4 py-2 text-sm text-white/72 transition hover:bg-white/10 hover:text-white"
+              className="rounded-full px-4 py-2 text-sm text-white/72 transition hover:bg-[linear-gradient(135deg,#8A94FF_0%,#A88BEB_50%,#F8BBD0_100%)] hover:text-[#11131a]"
             >
               {item.label}
             </Link>
           ))}
         </nav>
         <Link
-          href="/contact"
-          className="inline-flex items-center gap-2 rounded-full border border-[#7dd3fc]/30 bg-[#7dd3fc]/12 px-4 py-2 text-sm font-medium text-[#d9f6ff] transition hover:border-[#7dd3fc]/55 hover:bg-[#7dd3fc]/18"
+          href="/Sayak_Panda_Resume.pdf"
+          download
+          className="inline-flex items-center gap-2 justify-self-end rounded-xl border border-white/10 bg-white/6 px-4 py-2.5 text-sm font-semibold text-white transition hover:border-transparent hover:bg-[linear-gradient(135deg,#8A94FF_0%,#A88BEB_50%,#F8BBD0_100%)] hover:text-[#11131a]"
         >
-          Let&apos;s talk
-          <Mail className="size-4" />
+          <ArrowDownToLine className="size-4" />
+          Resume
         </Link>
       </div>
     </header>
@@ -82,49 +84,56 @@ export function SiteFooter() {
 
 export function PageContainer({ children }: { children: ReactNode }) {
   return (
-    <div className="relative overflow-hidden">
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(86,190,255,0.16),transparent_34%),radial-gradient(circle_at_top_right,rgba(255,121,198,0.12),transparent_26%),linear-gradient(180deg,rgba(255,255,255,0.02),transparent_12%)]" />
-      <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.035)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.035)_1px,transparent_1px)] bg-[size:96px_96px] opacity-[0.14]" />
-      <div className="relative">
+    <ShapeLandingBackground>
+      <div className="relative min-h-screen">
         <SiteHeader />
         <MobileNavStrip />
         {children}
         <SiteFooter />
       </div>
-    </div>
+    </ShapeLandingBackground>
   );
 }
 
 export function SectionHeading({
   eyebrow,
   title,
-  description,
 }: {
   eyebrow: string;
   title: string;
-  description: string;
 }) {
   return (
-    <div className="max-w-3xl">
-      <p className="mb-4 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/6 px-3 py-1 text-xs uppercase tracking-[0.34em] text-[#8dd8ff]">
-        <Sparkles className="size-3.5" />
+    <div className="mx-auto flex max-w-3xl flex-col items-center text-center">
+      <p className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-5 py-3 text-sm tracking-[0.12em] text-[#74c8ff]">
+        <ArrowRight className="size-4" />
         {eyebrow}
       </p>
-      <h2 className="text-3xl font-semibold tracking-tight text-white sm:text-4xl">{title}</h2>
-      <p className="mt-4 text-base leading-7 text-white/62 sm:text-lg">{description}</p>
+      <h2 className="bg-[linear-gradient(135deg,#34c7ff_0%,#8A94FF_38%,#A88BEB_68%,#F8BBD0_100%)] bg-clip-text text-4xl font-semibold tracking-tight text-transparent sm:text-5xl">
+        {title}
+      </h2>
+      <div className="mt-6 h-1 w-28 rounded-full bg-[linear-gradient(135deg,#34c7ff_0%,#8A94FF_38%,#A88BEB_68%,#F8BBD0_100%)]" />
     </div>
   );
 }
 
+export function GradientDivider() {
+  return <div className="h-px w-full bg-[linear-gradient(90deg,transparent_0%,#34c7ff_8%,#8A94FF_38%,#A88BEB_68%,#F8BBD0_92%,transparent_100%)] opacity-70" />;
+}
+
 export function ContentSection({
+  id,
   className,
   children,
 }: {
+  id?: string;
   className?: string;
   children: ReactNode;
 }) {
   return (
-    <section className={cn("mx-auto w-full max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-20", className)}>
+    <section
+      id={id}
+      className={cn("mx-auto w-full max-w-7xl scroll-mt-28 px-4 py-16 sm:px-6 lg:px-8 lg:py-20", className)}
+    >
       {children}
     </section>
   );
@@ -178,20 +187,20 @@ export function PageHero({
 
 export function LogoLink() {
   return (
-    <Link href="/" className="group inline-flex items-center gap-3.5">
+    <Link href="/" className="group inline-flex items-center gap-4">
       <Image
         src="/portfolio_logo_nobackground.png"
         alt="Sayak Panda logo"
-        width={80}
-        height={80}
-        className="h-12 w-12 object-contain sm:h-14 sm:w-14"
+        width={120}
+        height={120}
+        className="h-[4.5rem] w-[4.5rem] scale-[2.1] object-contain sm:h-[5.5rem] sm:w-[5.5rem]"
         priority
       />
-      <div>
-        <p className="font-semibold tracking-[0.08em] text-white transition group-hover:text-[#c3eeff]">
-          {profile.initials}
+      <div className="hidden sm:block">
+        <p className="bg-gradient-to-r from-[#9fb4ff] via-[#d7ddff] to-[#ffb6cb] bg-clip-text text-[1.7rem] font-semibold leading-none text-transparent transition group-hover:from-[#b4c5ff] group-hover:via-[#eef2ff] group-hover:to-[#ffc7d7]">
+          Sayak Panda
         </p>
-        <p className="text-xs uppercase tracking-[0.24em] text-white/42">{profile.role}</p>
+        <p className="mt-1 text-xs uppercase tracking-[0.3em] text-white/45">MERN Stack Developer</p>
       </div>
     </Link>
   );
@@ -199,38 +208,21 @@ export function LogoLink() {
 
 export function HeroLogoCard({ compact = false }: { compact?: boolean }) {
   return (
-    <SurfaceCard className={cn("relative overflow-hidden", compact ? "p-5" : "p-6")}>
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(126,213,255,0.18),transparent_32%),radial-gradient(circle_at_bottom_right,rgba(255,146,206,0.18),transparent_28%)]" />
-      <div className="relative">
-        <div className="rounded-[24px] border border-white/10 bg-black/30 p-4">
+    <div className={cn("relative lg:translate-x-[30%]", compact ? "px-4 py-2" : "px-4 py-2")}>
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(138,148,255,0.16),transparent_42%),radial-gradient(circle_at_bottom_right,rgba(248,187,208,0.14),transparent_34%)] blur-3xl" />
+      <div className="relative flex justify-center">
+        <div className="h-[275px] w-[275px] overflow-hidden rounded-full">
           <Image
             src="/portfolio_logo.png"
             alt="Portfolio logo artwork"
             width={1200}
             height={1200}
-            className="h-auto w-full rounded-[18px] object-cover"
+            className="h-full w-full object-cover"
             priority
           />
         </div>
-        <div className="mt-5 flex items-center gap-3">
-          <div className="rounded-2xl border border-white/10 bg-white/6 p-2">
-            <Image
-              src="/portfolio_logo_nobackground.png"
-              alt="Transparent logo mark"
-              width={64}
-              height={64}
-              className="h-11 w-11 object-contain"
-            />
-          </div>
-          <div>
-            <p className="text-sm uppercase tracking-[0.26em] text-[#8bd9ff]">Brand System</p>
-            <p className="mt-1 text-sm leading-6 text-white/62">
-              Both logo assets are now part of the landing experience and route-level branding.
-            </p>
-          </div>
-        </div>
       </div>
-    </SurfaceCard>
+    </div>
   );
 }
 
@@ -277,7 +269,7 @@ export function LinkTag({ href, label }: { href: string; label: string }) {
   return (
     <Link
       href={href}
-      className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-sm text-white/72 transition hover:border-white/18 hover:bg-white/9 hover:text-white"
+      className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-sm text-white/72 transition hover:border-transparent hover:bg-[linear-gradient(135deg,#8A94FF_0%,#A88BEB_50%,#F8BBD0_100%)] hover:text-[#11131a]"
     >
       {label}
       <ArrowUpRight className="size-4" />
