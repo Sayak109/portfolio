@@ -3,8 +3,6 @@ import Link from "next/link";
 import type { ReactNode } from "react";
 import { ArrowUpRight, Mail, MenuSquare, Sparkles } from "lucide-react";
 
-import logoWithBackground from "../../../portfolio_logo.png";
-import logoTransparent from "../../../portfolio_logo_nobackground.png";
 import { navItems, profile, socialLinks } from "@/lib/portfolio-data";
 import { cn } from "@/lib/utils";
 
@@ -180,10 +178,15 @@ export function PageHero({
 
 export function LogoLink() {
   return (
-    <Link href="/" className="group inline-flex items-center gap-3">
-      <div className="rounded-2xl border border-white/10 bg-white/6 p-2 shadow-[0_12px_36px_rgba(0,0,0,0.28)]">
-        <Image src={logoTransparent} alt="Sayak Panda logo" className="h-9 w-9 object-contain" priority />
-      </div>
+    <Link href="/" className="group inline-flex items-center gap-3.5">
+      <Image
+        src="/portfolio_logo_nobackground.png"
+        alt="Sayak Panda logo"
+        width={80}
+        height={80}
+        className="h-12 w-12 object-contain sm:h-14 sm:w-14"
+        priority
+      />
       <div>
         <p className="font-semibold tracking-[0.08em] text-white transition group-hover:text-[#c3eeff]">
           {profile.initials}
@@ -201,15 +204,23 @@ export function HeroLogoCard({ compact = false }: { compact?: boolean }) {
       <div className="relative">
         <div className="rounded-[24px] border border-white/10 bg-black/30 p-4">
           <Image
-            src={logoWithBackground}
+            src="/portfolio_logo.png"
             alt="Portfolio logo artwork"
+            width={1200}
+            height={1200}
             className="h-auto w-full rounded-[18px] object-cover"
             priority
           />
         </div>
         <div className="mt-5 flex items-center gap-3">
           <div className="rounded-2xl border border-white/10 bg-white/6 p-2">
-            <Image src={logoTransparent} alt="Transparent logo mark" className="h-11 w-11 object-contain" />
+            <Image
+              src="/portfolio_logo_nobackground.png"
+              alt="Transparent logo mark"
+              width={64}
+              height={64}
+              className="h-11 w-11 object-contain"
+            />
           </div>
           <div>
             <p className="text-sm uppercase tracking-[0.26em] text-[#8bd9ff]">Brand System</p>

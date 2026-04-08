@@ -10,7 +10,7 @@ export const navItems = [
 
 export const profile = {
   name: "Sayak Panda",
-  initials: "SP",
+  initials: "Sayak Panda",
   role: "MERN Stack Developer",
   headline: "Building thoughtful web products with clean code, sharp UI, and product-first execution.",
   shortBio:

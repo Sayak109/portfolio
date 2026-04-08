@@ -7,7 +7,7 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-sans);
+  --font-sans: var(--font-montserrat-body);
   --font-mono: var(--font-geist-mono);
   --font-heading: var(--font-sans);
   --color-sidebar-ring: var(--sidebar-ring);
@@ -131,12 +131,12 @@
   html {
     @apply font-sans;
   }
+  p {
+    font-family: var(--font-montserrat-body), sans-serif;
+  }
   h1,
   h2,
-  h3,
-  h4,
-  h5,
-  h6 {
+  h3 {
     font-family: var(--font-geist-mono), sans-serif;
   }
 }

@@ -1,20 +1,32 @@
 import type { Metadata } from "next";
-import { Manrope, Space_Grotesk } from "next/font/google";
+import { Montserrat, Poppins } from "next/font/google";
 import "./globals.css";
 
-const manrope = Manrope({
+const montserrat = Montserrat({
   variable: "--font-geist-sans",
   subsets: ["latin"],
 });
 
-const spaceGrotesk = Space_Grotesk({
+const poppins = Poppins({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+});
+
+const montserratBody = Montserrat({
+  variable: "--font-montserrat-body",
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
 });
 
 export const metadata: Metadata = {
   title: "Sayak Panda | Portfolio",
   description: "Portfolio of Sayak Panda, a MERN Stack Developer building thoughtful modern web experiences.",
+  icons: {
+    icon: "/portfolio_logo.png",
+    shortcut: "/portfolio_logo.png",
+    apple: "/portfolio_logo.png",
+  },
 };
 
 export default function RootLayout({
@@ -25,7 +37,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${manrope.variable} ${spaceGrotesk.variable} dark h-full scroll-smooth antialiased`}
+      className={`${montserrat.variable} ${poppins.variable} ${montserratBody.variable} dark h-full scroll-smooth antialiased`}
     >
       <body className="min-h-full flex flex-col bg-[#05070b] text-white">
         {children}
