@@ -40,4 +40,8 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
+# local resume artifacts
 resume-extracted.txt
+resume-extracted-*.txt
+resume-temp.*
+resume-ocr.*
