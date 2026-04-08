@@ -132,11 +132,11 @@
     @apply font-sans;
   }
   p {
-    font-family: var(--font-montserrat-body), sans-serif;
+    font-family: var(--font-montserrat-body);
   }
   h1,
   h2,
   h3 {
-    font-family: var(--font-geist-mono), sans-serif;
+    font-family: var(--font-geist-mono);
   }
 }

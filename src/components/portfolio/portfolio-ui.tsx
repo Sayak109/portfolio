@@ -24,9 +24,10 @@ export function SiteHeader() {
           ))}
         </nav>
         <Link
-          href="/Sayak_Panda_Resume.pdf"
-          download
-          className="inline-flex items-center gap-2 justify-self-end rounded-xl border border-white/10 bg-white/6 px-4 py-2.5 text-sm font-semibold text-white transition hover:border-transparent hover:bg-[linear-gradient(135deg,#8A94FF_0%,#A88BEB_50%,#F8BBD0_100%)] hover:text-[#11131a]"
+          href={profile.resumeDriveUrl}
+          target="_blank"
+          rel="noreferrer"
+          className="inline-flex items-center gap-3 rounded-full border border-white/10 bg-white/5 px-5 py-3 text-sm font-semibold text-white transition hover:border-transparent hover:bg-[linear-gradient(135deg,#8A94FF_0%,#A88BEB_50%,#F8BBD0_100%)] hover:text-[#11131a]"
         >
           <ArrowDownToLine className="size-4" />
           Resume
@@ -71,6 +72,8 @@ export function SiteFooter() {
             <Link
               key={link.label}
               href={link.href}
+              target="_blank"
+              rel="noreferrer"
               className="rounded-full border border-white/10 px-4 py-2 text-sm text-white/70 transition hover:border-white/20 hover:bg-white/6 hover:text-white"
             >
               {link.label}
@@ -117,7 +120,9 @@ export function SectionHeading({
 }
 
 export function GradientDivider() {
-  return <div className="h-px w-full bg-[linear-gradient(90deg,transparent_0%,#34c7ff_8%,#8A94FF_38%,#A88BEB_68%,#F8BBD0_92%,transparent_100%)] opacity-70" />;
+  return (
+    <div className="mx-auto h-px w-full max-w-[calc(100%-2rem)] bg-[linear-gradient(90deg,transparent_0%,#8A94FF_1.5%,#A88BEB_48%,#F8BBD0_98.5%,transparent_100%)] opacity-70 sm:max-w-[calc(100%-4rem)] lg:max-w-[calc(100%-20rem)] xl:max-w-[calc(100%-24rem)]" />
+  );
 }
 
 export function ContentSection({
@@ -132,7 +137,7 @@ export function ContentSection({
   return (
     <section
       id={id}
-      className={cn("mx-auto w-full max-w-7xl scroll-mt-28 px-4 py-16 sm:px-6 lg:px-8 lg:py-20", className)}
+      className={cn("mx-auto w-full max-w-7xl scroll-mt-28 px-4 py-2 sm:px-6 lg:px-8 lg:py-4", className)}
     >
       {children}
     </section>
@@ -206,9 +211,15 @@ export function LogoLink() {
   );
 }
 
-export function HeroLogoCard({ compact = false }: { compact?: boolean }) {
+export function HeroLogoCard({
+  compact = false,
+  className,
+}: {
+  compact?: boolean;
+  className?: string;
+}) {
   return (
-    <div className={cn("relative lg:translate-x-[30%]", compact ? "px-4 py-2" : "px-4 py-2")}>
+    <div className={cn("relative lg:translate-x-[30%]", compact ? "px-4 py-2" : "px-4 py-2", className)}>
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(138,148,255,0.16),transparent_42%),radial-gradient(circle_at_bottom_right,rgba(248,187,208,0.14),transparent_34%)] blur-3xl" />
       <div className="relative flex justify-center">
         <div className="h-[275px] w-[275px] overflow-hidden rounded-full">
