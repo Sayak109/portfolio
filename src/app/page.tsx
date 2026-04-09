@@ -1,5 +1,6 @@
 import { AboutSection } from "@/components/portfolio/sections/about-section";
 import { ExperienceSection } from "@/components/portfolio/sections/experience-section";
+import { ProjectsSection } from "@/components/portfolio/sections/projects-section";
 import { SectionShell } from "@/components/portfolio/sections/section-shell";
 import { ContentSection, GradientDivider, PageContainer } from "@/components/portfolio/portfolio-ui";
 import { socialLinks } from "@/lib/portfolio-data";
@@ -17,7 +18,7 @@ export default function Home() {
         <ContentSection className="max-w-none px-1 pt-0 pb-0 sm:px-1.5 lg:px-2">
           <GradientDivider />
         </ContentSection>
-        <SectionShell id="projects" title="Projects" />
+        <ProjectsSection />
         <ContentSection className="max-w-none px-1 pt-0 pb-0 sm:px-1.5 lg:px-2">
           <GradientDivider />
         </ContentSection>

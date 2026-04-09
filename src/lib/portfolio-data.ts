@@ -58,11 +58,42 @@ export const experienceItems = [
   },
 ] as const;
 
+export type ProjectIconKey = "store" | "calendar" | "layout";
+
+export interface ProjectItem {
+  id: number;
+  shortTitle: string;
+  title: string;
+  period: string;
+  summary: string;
+  role: string;
+  category: string;
+  iconKey: ProjectIconKey;
+  logoSrc?: string;
+  relatedIds: readonly number[];
+  energy: number;
+  techStack: readonly string[];
+  details: readonly string[];
+  sourceUrl?: string;
+  liveUrl?: string;
+}
+
 export const projectItems = [
   {
-    title: "Pink Paws - E-commerce Platform",
+    id: 1,
+    shortTitle: "Pink Paws",
+    title: "Pink Paws",
     period: "Nov 2024 - Dec 2025",
-    techStack: ["Node.js", "Express.js", "PostgreSQL", "Prisma ORM", "Elasticsearch", "Next.js"],
+    summary:
+      "Scalable pet-commerce platform combining intelligent search, secure payments, wallet flows, automated logistics, and a role-based admin workspace.",
+    role: "Backend Developer & Architect",
+    category: "E-commerce",
+    iconKey: "store",
+    logoSrc: "/pinkpaws_logo.png",
+    relatedIds: [2, 3],
+    energy: 96,
+    techStack: ["Node.js", "Express.js", "PostgreSQL", "Prisma ORM", "Elasticsearch", "JWT", "DTDC", "Firebase", "Next.js"],
+    liveUrl: "https://www.pinkpaws.co.in/",
     details: [
       "Architected and optimized the backend infrastructure for a production pet e-commerce platform with Elasticsearch-powered search, instant results, fuzzy matching, and relevance-ranked filtering.",
       "Integrated Razorpay payment gateway with secure webhook handling for real-time payment confirmation, refund processing, and transaction status updates.",
@@ -73,9 +104,20 @@ export const projectItems = [
     ],
   },
   {
-    title: "Pink Paws - Service Booking Platform",
+    id: 2,
+    shortTitle: "Pink Paws Grooming",
+    title: "Pink Paws Grooming",
     period: "May 2025 - Dec 2025",
-    techStack: ["Node.js", "Express.js", "Next.js", "MongoDB"],
+    summary:
+      "Real-time grooming booking platform with reliable slot orchestration, groomer availability handling, and centralized service operations.",
+    role: "Backend Developer",
+    category: "Service Booking",
+    iconKey: "calendar",
+    logoSrc: "/pinkpaws_logo.png",
+    relatedIds: [1, 3],
+    energy: 88,
+    techStack: ["Node.js", "Express.js", "Next.js", "MongoDB", "JWT", "Microservice", "Razorpay"],
+    liveUrl: "https://grooming.pinkpaws.co.in/",
     details: [
       "Engineered the backend for a dedicated pet grooming service booking platform, enabling users to browse, schedule, and manage grooming appointments for dogs and cats in real time.",
       "Designed and built the slot management and appointment scheduling system, handling booking conflicts, time-zone logic, and groomer availability in a reliable, scalable manner.",
@@ -83,16 +125,95 @@ export const projectItems = [
     ],
   },
   {
+    id: 3,
+    shortTitle: "PAR Enterprise",
     title: "PAR Enterprise",
     period: "Jan 2026 - Mar 2026",
-    techStack: ["Node.js", "Nest.js", "PostgreSQL", "Prisma ORM", "Next.js", "Cloudflare R2"],
+    summary:
+      "Secure headless CMS that lets teams manage dynamic pages, media, and navigation from one admin panel.",
+    role: "Lead Backend Developer & Architect",
+    category: "Headless CMS",
+    iconKey: "layout",
+    logoSrc: "/par_logo.png",
+    relatedIds: [1, 2],
+    energy: 84,
+    techStack: ["Node.js", "Nest.js", "PostgreSQL", "Prisma ORM", "JWT", "Next.js", "Cloudflare R2"],
+    liveUrl: "https://par.altisinfonet.in/",
     details: [
       "Built a full-stack headless CMS enabling admins to manage the client-side from a single panel by creating dynamic pages, sliders, and menus without code changes.",
       "Implemented rate limiting and brute-force protection on all authentication endpoints using Nest.js guards to secure admin access.",
       "Integrated Cloudflare R2 for scalable cloud storage of images and files, decoupling media management from the application server and reducing infrastructure costs.",
     ],
   },
-] as const;
+  {
+    id: 4,
+    shortTitle: "FinMitra",
+    title: "FinMitra",
+    period: "Nov 2025 - Feb 2026",
+    summary:
+      "SaaS-based agent CRM platform built for managing financial product records, recurring subscriptions, secure APIs, and scalable document storage.",
+    role: "Backend Developer & Architect",
+    category: "SaaS Platform",
+    iconKey: "layout",
+    logoSrc: "/finmitra_logo.png",
+    relatedIds: [5, 6],
+    energy: 89,
+    techStack: ["Nest.js", "Express.js", "Prisma ORM", "Razorpay", "Cloudflare R2", "Redis", "JWT", "Rate Limiting", "REST APIs", "Firebase"],
+    liveUrl: "",
+    details: [
+      "Designed the backend architecture for a SaaS-based agent CRM platform that helps agents manage customer financial product records across loans, insurance, fixed deposits, and real estate services.",
+      "Implemented subscription-based access using Razorpay recurring billing APIs to support controlled plan activation and recurring monetization workflows.",
+      "Integrated Cloudflare R2 for scalable document storage and delivery across customer records, uploaded documents, and platform assets.",
+      "Secured platform APIs using authentication guards and rate-limiting strategies to harden access control and protect high-traffic endpoints.",
+      "Successfully deployed the application and production backend infrastructure, ensuring the platform was stable, accessible, and ready for real-world agent operations.",
+    ],
+  },
+  {
+    id: 5,
+    shortTitle: "Yumdut",
+    title: "Yumdut | Era shop",
+    period: "Aug 2025 - Nov 2025",
+    summary:
+      "Multi-vendor fashion commerce platform with seller onboarding, reels-based discovery, payment flows, logistics integrations, and secure admin operations.",
+    role: "Backend Developer & Architect",
+    category: "E-commerce",
+    iconKey: "store",
+    logoSrc: "/yumdut-logo.webp",
+    relatedIds: [4, 6],
+    energy: 91,
+    techStack: ["Nest.js", "Express.js", "Next.js", "Razorpay", "Shiprocket", "JWT", "RBAC", "REST APIs", "Firebase",],
+    liveUrl: "https://yumdut.com/",
+    details: [
+      "Designed and developed backend services for a multi-vendor fashion e-commerce platform that enables sellers to onboard and manage products dynamically.",
+      "Implemented reels-based product discovery with hashtag tagging and direct product linking to create a more engaging content-led shopping experience.",
+      "Integrated Razorpay payment workflows and Shiprocket logistics APIs to streamline order processing, fulfillment, and delivery operations.",
+      "Built secure admin modules for managing sellers, products, and platform operations through role-based access control.",
+      "Successfully deployed the application and backend services, helping the platform transition smoothly from development to a stable live environment for everyday usage.",
+    ],
+  },
+  {
+    id: 6,
+    shortTitle: "PremiumInRupees",
+    title: "PremiumInRupees",
+    period: "Mar 2025 - Jul 2025",
+    summary:
+      "Digital product marketplace supporting multi-flow payments, admin approval operations, automated delivery, and secure scalable commerce APIs.",
+    role: "Backend Developer & Architect",
+    category: "Digital Marketplace",
+    iconKey: "store",
+    logoSrc: "/premiuminrupees_logo.webp",
+    relatedIds: [4, 5],
+    energy: 87,
+    techStack: ["Node.js", "Express.js", "Prisma ORM", "PostgreSQL", "Razorpay", "PayPal"],
+    liveUrl: "https://premiuminrupees.com/",
+    details: [
+      "Developed the backend architecture for a digital product marketplace supporting Razorpay, PayPal, and manual bank transfer verification workflows.",
+      "Implemented admin-controlled order approval flows to support payment review and operational verification before fulfillment.",
+      "Automated email-based credential delivery after payment confirmation to streamline digital order fulfillment.",
+      "Designed secure authentication flows and scalable REST APIs using Prisma ORM and PostgreSQL.",
+    ],
+  },
+] as const satisfies readonly ProjectItem[];
 
 export const skillGroups = [
   {
@@ -139,3 +260,4 @@ export const educationItems = [
 ] as const;
 
 export type ExperienceItem = (typeof experienceItems)[number];
+export type PortfolioProjectItem = (typeof projectItems)[number];
