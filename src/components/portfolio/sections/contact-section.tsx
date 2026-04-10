@@ -2,10 +2,11 @@
 
 import type { FormEvent, ReactNode } from "react";
 import { useEffect, useRef, useState } from "react";
-import { ArrowUpRight, Mail, Phone, SendHorizonal } from "lucide-react";
+import { ArrowUpRight, CheckCircle2, Mail, Phone, SendHorizonal, TriangleAlert, X } from "lucide-react";
 
 import { ContentSection, SectionHeading } from "@/components/portfolio/portfolio-ui";
 import { profile, socialLinks } from "@/lib/portfolio-data";
+import { cn } from "@/lib/utils";
 
 type ContactCardProps = {
   eyebrow: string;
@@ -14,6 +15,11 @@ type ContactCardProps = {
   icon: ReactNode;
   onClick?: () => void;
   href?: string;
+};
+
+type ToastState = {
+  message: string;
+  tone: "success" | "error";
 };
 
 function LinkedInIcon({ className }: { className?: string }) {
@@ -96,12 +102,71 @@ function ContactCardShell({ eyebrow, value, actionLabel, icon, onClick, href }: 
   );
 }
 
+function ContactToast({
+  toast,
+  onClose,
+}: {
+  toast: ToastState;
+  onClose: () => void;
+}) {
+  const isSuccess = toast.tone === "success";
+
+  return (
+    <div className="fixed inset-x-4 bottom-20 z-50 sm:left-auto sm:right-6 sm:w-full sm:max-w-sm">
+      <div
+        className={cn(
+          "relative overflow-hidden rounded-[22px] border bg-[linear-gradient(180deg,rgba(13,15,25,0.97),rgba(10,11,19,0.95))] p-4 shadow-[0_18px_60px_rgba(0,0,0,0.34)] backdrop-blur-xl",
+          isSuccess ? "border-emerald-400/20" : "border-rose-300/18"
+        )}
+      >
+        <span
+          className={cn(
+            "absolute inset-x-0 top-0 h-[2px]",
+            isSuccess
+              ? "bg-[linear-gradient(90deg,#34d399_0%,#6ee7b7_100%)]"
+              : "bg-[linear-gradient(90deg,#fb7185_0%,#fda4af_100%)]"
+          )}
+        />
+
+        <div className="flex items-start gap-3">
+          <div
+            className={cn(
+              "inline-flex size-10 shrink-0 items-center justify-center rounded-full border",
+              isSuccess
+                ? "border-emerald-400/20 bg-emerald-400/10 text-emerald-300"
+                : "border-rose-300/20 bg-rose-300/10 text-rose-200"
+            )}
+          >
+            {isSuccess ? <CheckCircle2 className="size-5" /> : <TriangleAlert className="size-5" />}
+          </div>
+
+          <div className="min-w-0 flex-1">
+            <p className="text-sm font-semibold text-white">{isSuccess ? "Message sent" : "Message failed"}</p>
+            <p className="mt-1 text-sm leading-6 text-white/68">{toast.message}</p>
+          </div>
+
+          <button
+            type="button"
+            onClick={onClose}
+            className="inline-flex size-8 items-center justify-center rounded-full border border-white/10 bg-white/[0.03] text-white/54 transition hover:border-transparent hover:bg-[linear-gradient(135deg,#8A94FF_0%,#A88BEB_50%,#F8BBD0_100%)] hover:text-[#11131a]"
+          >
+            <X className="size-4" />
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export function ContactSection() {
   const linkedinHref = socialLinks.find((item) => item.label === "LinkedIn")?.href ?? "#";
   const githubHref = socialLinks.find((item) => item.label === "GitHub")?.href ?? "#";
   const [statusMessage, setStatusMessage] = useState("");
   const statusTimeoutRef = useRef<number | null>(null);
+  const toastTimeoutRef = useRef<number | null>(null);
   const [formStatus, setFormStatus] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [toast, setToast] = useState<ToastState | null>(null);
   const [formValues, setFormValues] = useState({
     name: "",
     email: "",
@@ -112,6 +177,10 @@ export function ContactSection() {
     return () => {
       if (statusTimeoutRef.current) {
         window.clearTimeout(statusTimeoutRef.current);
+      }
+
+      if (toastTimeoutRef.current) {
+        window.clearTimeout(toastTimeoutRef.current);
       }
     };
   }, []);
@@ -127,6 +196,19 @@ export function ContactSection() {
       setStatusMessage("");
       statusTimeoutRef.current = null;
     }, 2000);
+  };
+
+  const showToast = (nextToast: ToastState) => {
+    setToast(nextToast);
+
+    if (toastTimeoutRef.current) {
+      window.clearTimeout(toastTimeoutRef.current);
+    }
+
+    toastTimeoutRef.current = window.setTimeout(() => {
+      setToast(null);
+      toastTimeoutRef.current = null;
+    }, 3600);
   };
 
   const handlePhoneCopy = async () => {
@@ -155,20 +237,51 @@ export function ContactSection() {
     window.location.href = `mailto:${profile.email}`;
   };
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    const subject = `Portfolio inquiry from ${formValues.name}`;
-    const body = [
-      `Name: ${formValues.name}`,
-      `Email: ${formValues.email}`,
-      "",
-      "Message:",
-      formValues.message,
-    ].join("\n");
+    setIsSubmitting(true);
+    setFormStatus("Sending your message...");
 
-    setFormStatus("Opening your mail app with this message...");
-    window.location.href = `mailto:${profile.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formValues),
+      });
+
+      const data = (await response.json()) as { error?: string };
+
+      if (!response.ok) {
+        setFormStatus(data.error ?? "Unable to send your message right now.");
+        showToast({
+          tone: "error",
+          message: data.error ?? "Unable to send your message right now.",
+        });
+        return;
+      }
+
+      setFormStatus("Message sent successfully. I'll get back to you soon.");
+      showToast({
+        tone: "success",
+        message: "Your message has been delivered successfully. I'll get back to you soon.",
+      });
+      setFormValues({
+        name: "",
+        email: "",
+        message: "",
+      });
+    } catch {
+      setFormStatus("Something went wrong while sending your message.");
+      showToast({
+        tone: "error",
+        message: "Something went wrong while sending your message.",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -268,19 +381,34 @@ export function ContactSection() {
 
               <button
                 type="submit"
+                disabled={isSubmitting}
                 className="inline-flex w-full items-center justify-center gap-3 rounded-full border border-white/10 bg-white/5 px-6 py-4 text-lg font-semibold text-white transition hover:border-transparent hover:bg-[linear-gradient(135deg,#8A94FF_0%,#A88BEB_50%,#F8BBD0_100%)] hover:text-[#11131a]"
               >
                 <SendHorizonal className="size-5" />
-                Send Message
+                {isSubmitting ? "Sending..." : "Send Message"}
               </button>
 
-              <p className="min-h-6 text-sm text-white/46" aria-live="polite">
+              <p className="sr-only" aria-live="polite">
                 {formStatus}
               </p>
             </form>
           </div>
         </div>
       </div>
+
+      {toast ? (
+        <ContactToast
+          toast={toast}
+          onClose={() => {
+            setToast(null);
+
+            if (toastTimeoutRef.current) {
+              window.clearTimeout(toastTimeoutRef.current);
+              toastTimeoutRef.current = null;
+            }
+          }}
+        />
+      ) : null}
     </ContentSection>
   );
 }

@@ -18,9 +18,9 @@ export function SiteHeader() {
           <Image
             src="/portfolio_logo_nobackground.png"
             alt="Sayak Panda logo"
-            width={160}
-            height={160}
-            className="h-[4.25rem] w-[4.25rem] object-contain"
+            width={120}
+            height={120}
+            className="h-[4.5rem] w-[4.5rem] scale-[2.1] object-contain sm:h-[5.5rem] sm:w-[5.5rem]"
             priority
           />
           <div>
@@ -86,9 +86,10 @@ export function SiteFooter() {
               <Image
                 src="/portfolio_logo_nobackground.png"
                 alt="Sayak Panda logo"
-                width={160}
-                height={160}
-                className="h-[4.25rem] w-[4.25rem] shrink-0 object-contain"
+                width={120}
+                height={120}
+                className="h-[4.5rem] w-[4.5rem] scale-[2.1] object-contain sm:h-[5.5rem] sm:w-[5.5rem]"
+                priority
               />
               <div>
                 <p className="bg-gradient-to-r from-[#9fb4ff] via-[#d7ddff] to-[#ffb6cb] bg-clip-text text-[1.6rem] font-semibold leading-none text-transparent transition group-hover:from-[#b4c5ff] group-hover:via-[#eef2ff] group-hover:to-[#ffc7d7] sm:text-[1.85rem]">
@@ -158,7 +159,7 @@ export function SectionHeading({
   title: string;
 }) {
   return (
-    <div className="mx-auto flex max-w-3xl flex-col items-center text-center">
+    <div className="mx-auto flex max-w-3xl flex-col items-center pt-2 text-center sm:pt-0">
       <p className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-5 py-3 text-sm tracking-[0.12em] text-[#74c8ff]">
         <ArrowRight className="size-4" />
         {eyebrow}

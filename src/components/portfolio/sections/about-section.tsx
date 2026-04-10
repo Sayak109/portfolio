@@ -21,7 +21,7 @@ export function AboutSection() {
               Available for new opportunities
             </span>
           </p>
-          <h1 className="mt-6 bg-[linear-gradient(135deg,#8A94FF_0%,#A88BEB_50%,#F8BBD0_100%)] bg-clip-text text-4xl font-semibold tracking-tight text-transparent sm:text-5xl lg:text-6xl">
+          <h1 className="mt-6 bg-[linear-gradient(135deg,#34c7ff_0%,#8A94FF_38%,#A88BEB_68%,#F8BBD0_100%)] bg-clip-text text-4xl font-semibold tracking-tight text-transparent sm:text-5xl lg:text-6xl">
             About Me
           </h1>
           <p className="mt-6 max-w-none text-base leading-8 text-white/76 sm:text-lg sm:leading-9">
