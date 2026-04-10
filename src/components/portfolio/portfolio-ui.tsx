@@ -1,8 +1,11 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { ReactNode } from "react";
-import { ArrowDownToLine, ArrowRight, ArrowUpRight, MenuSquare } from "lucide-react";
+import { ArrowDownToLine, ArrowRight, ArrowUpRight, Copyright, MenuSquare } from "lucide-react";
 
+import { DesktopHeaderNavigation } from "@/components/portfolio/desktop-header-navigation";
+import { AboutContactActions } from "@/components/portfolio/sections/about-contact-actions";
+import { ScrollToTopButton } from "@/components/ui/scroll-to-top-button";
 import { ShapeLandingBackground } from "@/components/ui/shape-landing-hero";
 import { navItems, profile, socialLinks } from "@/lib/portfolio-data";
 import { cn } from "@/lib/utils";
@@ -10,24 +13,33 @@ import { cn } from "@/lib/utils";
 export function SiteHeader() {
   return (
     <header className="sticky top-0 z-40 border-b border-white/10 bg-[#07090f]/70 backdrop-blur-xl">
-      <div className="mx-auto grid w-full max-w-7xl grid-cols-[auto_1fr_auto] items-center gap-6 px-4 py-2 sm:px-6 lg:px-8">
-        <LogoLink />
-        <nav className="hidden items-center gap-1 justify-self-center rounded-full border border-white/10 bg-white/5 p-1 md:flex">
-          {navItems.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className="rounded-full px-4 py-2 text-sm text-white/72 transition hover:bg-[linear-gradient(135deg,#8A94FF_0%,#A88BEB_50%,#F8BBD0_100%)] hover:text-[#11131a]"
-            >
-              {item.label}
-            </Link>
-          ))}
-        </nav>
+      <div className="relative mx-auto grid w-full max-w-7xl grid-cols-[minmax(0,1fr)] items-center gap-6 px-4 py-3 sm:px-6 lg:grid-cols-[auto_1fr_auto] lg:px-8 lg:py-2">
+        <Link href="/" className="group inline-flex items-center gap-3 lg:hidden">
+          <Image
+            src="/portfolio_logo_nobackground.png"
+            alt="Sayak Panda logo"
+            width={160}
+            height={160}
+            className="h-[4.25rem] w-[4.25rem] object-contain"
+            priority
+          />
+          <div>
+            <p className="bg-gradient-to-r from-[#9fb4ff] via-[#d7ddff] to-[#ffb6cb] bg-clip-text text-[1.2rem] font-semibold leading-none text-transparent">
+              {profile.name}
+            </p>
+            <p className="mt-2 text-[11px] uppercase tracking-[0.28em] text-white/42">{profile.role}</p>
+          </div>
+        </Link>
+
+        <div className="hidden lg:block">
+          <LogoLink />
+        </div>
+        <DesktopHeaderNavigation />
         <Link
           href={profile.resumeDriveUrl}
           target="_blank"
           rel="noreferrer"
-          className="inline-flex items-center gap-3 rounded-full border border-white/10 bg-white/5 px-5 py-3 text-sm font-semibold text-white transition hover:border-transparent hover:bg-[linear-gradient(135deg,#8A94FF_0%,#A88BEB_50%,#F8BBD0_100%)] hover:text-[#11131a]"
+          className="hidden items-center gap-3 rounded-full border border-white/10 bg-white/5 px-5 py-3 text-sm font-semibold text-white transition hover:border-transparent hover:bg-[linear-gradient(135deg,#8A94FF_0%,#A88BEB_50%,#F8BBD0_100%)] hover:text-[#11131a] lg:inline-flex"
         >
           <ArrowDownToLine className="size-4" />
           Resume
@@ -60,26 +72,66 @@ export function MobileNavStrip() {
 }
 
 export function SiteFooter() {
+  const linkedinHref = socialLinks.find((link) => link.label === "LinkedIn")?.href ?? "#";
+  const githubHref = socialLinks.find((link) => link.label === "GitHub")?.href ?? "#";
+
   return (
-    <footer className="border-t border-white/10 bg-[#05070b]">
-      <div className="mx-auto flex w-full max-w-7xl flex-col gap-5 px-4 py-8 sm:px-6 lg:flex-row lg:items-center lg:justify-between lg:px-8">
-        <div>
-          <p className="text-sm font-medium text-white">{profile.name}</p>
-          <p className="text-sm text-white/45">{profile.role}</p>
-        </div>
-        <div className="flex flex-wrap items-center gap-3">
-          {socialLinks.map((link) => (
-            <Link
-              key={link.label}
-              href={link.href}
-              target="_blank"
-              rel="noreferrer"
-              className="rounded-full border border-white/10 px-4 py-2 text-sm text-white/70 transition hover:border-white/20 hover:bg-white/6 hover:text-white"
-            >
-              {link.label}
+    <footer className="relative mt-8 border-t border-white/10 bg-[#05070b]">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_18%,rgba(138,148,255,0.18),transparent_24%),radial-gradient(circle_at_72%_22%,rgba(248,187,208,0.14),transparent_26%),radial-gradient(circle_at_50%_100%,rgba(52,199,255,0.08),transparent_34%)]" />
+
+      <div className="relative border-b border-white/8 bg-[linear-gradient(180deg,rgba(11,12,18,0.92),rgba(8,9,14,0.96))]">
+        <div className="mx-auto grid w-full max-w-7xl gap-12 px-4 py-12 sm:px-6 lg:grid-cols-[1.15fr_0.85fr] lg:px-8 lg:py-16">
+          <div className="max-w-xl">
+            <Link href="/" className="group inline-flex items-center gap-4">
+              <Image
+                src="/portfolio_logo_nobackground.png"
+                alt="Sayak Panda logo"
+                width={160}
+                height={160}
+                className="h-[4.25rem] w-[4.25rem] shrink-0 object-contain"
+              />
+              <div>
+                <p className="bg-gradient-to-r from-[#9fb4ff] via-[#d7ddff] to-[#ffb6cb] bg-clip-text text-[1.6rem] font-semibold leading-none text-transparent transition group-hover:from-[#b4c5ff] group-hover:via-[#eef2ff] group-hover:to-[#ffc7d7] sm:text-[1.85rem]">
+                  {profile.name}
+                </p>
+                <p className="mt-2 text-xs uppercase tracking-[0.28em] text-white/42">{profile.role}</p>
+              </div>
             </Link>
-          ))}
+
+            <p className="mt-6 max-w-lg text-sm leading-8 text-white/62 sm:text-base">
+              {profile.headline}
+            </p>
+
+            <AboutContactActions
+              email={profile.email}
+              phone={profile.phone}
+              linkedinHref={linkedinHref}
+              githubHref={githubHref}
+            />
+          </div>
+
+          <div className="lg:justify-self-end">
+            <p className="text-xs font-semibold uppercase tracking-[0.22em] text-white/42">Navigation</p>
+            <nav className="mt-5 grid grid-cols-2 gap-x-8 gap-y-3 sm:max-w-sm sm:grid-cols-1">
+              {navItems.map((item) => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className="text-base text-white/66 transition hover:bg-[linear-gradient(135deg,#8A94FF_0%,#A88BEB_54%,#F8BBD0_100%)] hover:bg-clip-text hover:text-transparent"
+                >
+                  {item.label}
+                </Link>
+              ))}
+            </nav>
+          </div>
         </div>
+      </div>
+
+      <div className="relative mx-auto flex w-full max-w-7xl items-center justify-center px-4 py-5 text-center sm:px-6 lg:px-8">
+        <p className="inline-flex items-center gap-2 text-sm text-white/46">
+          <Copyright className="size-4 text-white/40" />
+          {new Date().getFullYear()} {profile.name}. All rights reserved.
+        </p>
       </div>
     </footer>
   );
@@ -90,9 +142,9 @@ export function PageContainer({ children }: { children: ReactNode }) {
     <ShapeLandingBackground>
       <div className="relative min-h-screen">
         <SiteHeader />
-        <MobileNavStrip />
         {children}
         <SiteFooter />
+        <ScrollToTopButton />
       </div>
     </ShapeLandingBackground>
   );

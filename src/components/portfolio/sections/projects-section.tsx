@@ -2,6 +2,7 @@ import {
   type RadialOrbitalTimelineItem,
   default as RadialOrbitalTimeline,
 } from "@/components/ui/radial-orbital-timeline";
+import { ProjectsMobileStack } from "@/components/portfolio/sections/projects-mobile-stack";
 import { ContentSection, SectionHeading } from "@/components/portfolio/portfolio-ui";
 import { projectItems } from "@/lib/portfolio-data";
 
@@ -28,7 +29,11 @@ export function ProjectsSection() {
     <ContentSection id="projects" className="pt-0 pb-12">
       <SectionHeading eyebrow="What I've built" title="Projects" />
 
-      <div>
+      <div className="mt-2 lg:hidden">
+        <ProjectsMobileStack projects={projectItems} />
+      </div>
+
+      <div className="hidden lg:block">
         <RadialOrbitalTimeline timelineData={timelineData} />
       </div>
     </ContentSection>

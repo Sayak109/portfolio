@@ -217,47 +217,60 @@ export const projectItems = [
 
 export const skillGroups = [
   {
-    title: "Programming Languages",
-    items: ["JavaScript", "TypeScript", "Java"],
+    title: "Languages",
+    items: ["JavaScript", "TypeScript", "Java", "SQL", "HTML/CSS"],
   },
   {
     title: "Web Technologies",
-    items: ["Node.js", "Express.js", "Nest.js", "React.js", "Next.js", "REST APIs", "JWT", "HTML", "CSS"],
+    items: ["Node.js", "Express.js", "Nest.js", "REST APIs", "JWT", "React.js", "Next.js", "Material-UI"],
   },
   {
-    title: "Databases",
-    items: ["MySQL", "PostgreSQL", "MongoDB", "Redis", "Elasticsearch", "Prisma ORM"],
+    title: "Databases & Caching",
+    items: ["MySQL", "PostgreSQL", "MongoDB", "Redis", "Elasticsearch", "Prisma ORM", "Supabase"],
   },
   {
     title: "Developer Tools",
-    items: ["VS Code", "Git", "GitHub", "Postman"],
+    items: ["VS Code", "Git & GitHub", "Postman", "ChatGPT Codex", "Cursor AI", "Claude Code"],
   },
   {
     title: "Core Concepts",
-    items: ["Data Structures & Algorithms", "OOPs", "DBMS"],
+    items: ["Data Structures & Algorithms", "OOP", "DBMS"],
   },
 ] as const;
 
 export const educationItems = [
   {
-    title: "B.Tech - Computer Science & Engineering",
+    start: "Aug 2020",
+    end: "Jul 2024",
+    location: "Barasat, West Bengal",
     school: "Brainware University",
-    period: "2020 - 2024",
-    details: ["CGPA: 8.65 / 10", "Percentage: 81%"],
+    title: "Bachelors in Technology (B.Tech)",
+    department: "Computer Science & Engineering",
+    performance: "CGPA 8.65 / 10 • 81%",
+    highlights: ["C", "Java", "Data Structures", "Algorithms", "DBMS", "Operating Systems", "Computer Networks", "OOP"],
   },
   {
-    title: "12th Grade (Science)",
-    school: "",
-    period: "",
-    details: ["73.4%"],
+    start: "Jun 2019",
+    end: "Jul 2020",
+    location: "Nandigram, West Bengal, India",
+    school: "Debipur Milan Vidyapith",
+    title: "Class XII (Senior Secondary)",
+    department: "West Bengal Council of Higher Secondary Education (WBCHSE)",
+    performance: "73.4%",
+    highlights: ["Physics", "Chemistry", "Mathematics"],
   },
   {
-    title: "10th Grade",
-    school: "",
-    period: "",
-    details: ["84.8%"],
+    start: "Jan 2017",
+    end: "May 2018",
+    location: "Nandigram, West Bengal, India",
+    school: "Debipur Milan Vidyapith",
+    title: "Class X (Secondary)",
+    department: "West Bengal Board of Secondary Education (WBBSE)",
+    performance: "84.8%",
+    highlights: [],
   },
 ] as const;
 
 export type ExperienceItem = (typeof experienceItems)[number];
 export type PortfolioProjectItem = (typeof projectItems)[number];
+export type EducationItem = (typeof educationItems)[number];

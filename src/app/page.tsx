@@ -1,9 +1,10 @@
 import { AboutSection } from "@/components/portfolio/sections/about-section";
+import { ContactSection } from "@/components/portfolio/sections/contact-section";
+import { EducationSection } from "@/components/portfolio/sections/education-section";
 import { ExperienceSection } from "@/components/portfolio/sections/experience-section";
 import { ProjectsSection } from "@/components/portfolio/sections/projects-section";
-import { SectionShell } from "@/components/portfolio/sections/section-shell";
+import { SkillsSection } from "@/components/portfolio/sections/skills-section";
 import { ContentSection, GradientDivider, PageContainer } from "@/components/portfolio/portfolio-ui";
-import { socialLinks } from "@/lib/portfolio-data";
 
 export default function Home() {
   return (
@@ -22,31 +23,15 @@ export default function Home() {
         <ContentSection className="max-w-none px-1 pt-0 pb-0 sm:px-1.5 lg:px-2">
           <GradientDivider />
         </ContentSection>
-        <SectionShell id="skills" title="Skills" />
+        <SkillsSection />
         <ContentSection className="max-w-none px-1 pt-0 pb-0 sm:px-1.5 lg:px-2">
           <GradientDivider />
         </ContentSection>
-        <SectionShell id="education" title="Education" />
+        <EducationSection />
         <ContentSection className="max-w-none px-1 pt-0 pb-0 sm:px-1.5 lg:px-2">
           <GradientDivider />
         </ContentSection>
-        <SectionShell id="contact" title="Contact" />
-
-        <ContentSection className="pt-0">
-          <div className="flex flex-wrap gap-3">
-            {socialLinks.map((link) => (
-              <a
-                key={link.label}
-                href={link.href}
-                target="_blank"
-                rel="noreferrer"
-                className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm text-white/72 transition hover:border-transparent hover:bg-[linear-gradient(135deg,#8A94FF_0%,#A88BEB_50%,#F8BBD0_100%)] hover:text-[#11131a]"
-              >
-                {link.label}
-              </a>
-            ))}
-          </div>
-        </ContentSection>
+        <ContactSection />
       </main>
     </PageContainer>
   );
