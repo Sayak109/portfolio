@@ -277,7 +277,7 @@ export function HeroLogoCard({
       <div className="relative flex justify-center">
         <div className="h-[275px] w-[275px] overflow-hidden rounded-full">
           <Image
-            src="/portfolio_logo.png"
+            src="/sayak_profile.jpg"
             alt="Portfolio logo artwork"
             width={1200}
             height={1200}
