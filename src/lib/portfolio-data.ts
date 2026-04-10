@@ -159,7 +159,7 @@ export const projectItems = [
     relatedIds: [5, 6],
     energy: 89,
     techStack: ["Nest.js", "Express.js", "Prisma ORM", "Razorpay", "Cloudflare R2", "Redis", "JWT", "Rate Limiting", "REST APIs", "Firebase"],
-    liveUrl: "",
+    liveUrl: "https://play.google.com/store/apps/details?id=com.agentcrm",
     details: [
       "Designed the backend architecture for a SaaS-based agent CRM platform that helps agents manage customer financial product records across loans, insurance, fixed deposits, and real estate services.",
       "Implemented subscription-based access using Razorpay recurring billing APIs to support controlled plan activation and recurring monetization workflows.",
